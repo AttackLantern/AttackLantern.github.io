@@ -17,12 +17,18 @@ Failed to fetch file gs://chromium-clang-format/5349d1954e17f6ccafb6e6663b0f13cd
 
 之类的。
 
-下载失败的文件链接会在 fetch 失败时间过长后 print 出来，理论上讲，可以自己手动把这些文件下载下来，然后在 `gclient sync` 一下就好了，但实际不行，有一些小小的限制。
+下载失败的文件链接会在 fetch 失败时间过长后 print 出来，理论上讲，可以自己手动把这些文件下载下来，然后再 `gclient sync` 一下就好了，但实际不行，有一些小小的限制。
+
 这个下载模块的实现主要是在 depot tools 下的 `download_from_google_storage.py` ，里边有两个可以注意的地方：
+
 第一个地方是 `base_url = 'gs://%s' % options.bucket` 这一行。bucket 就是它要去 Google Drive 上所取的文件，理论上说把这个 gs 改成 https://storage.googleapis.com/ 就行了。然而并不行，可能是我本地代理的问题。
+
 第二个地方是 `downloader_worker_thread` 这个函数，它实现了下载线程，函数有一个参数 delete，默认为 true，作用是：如果需要下载的文件已经存在，就删除掉文件再重新去拿一次，这里需要改成 false。之后自己手动去下载文件， 再`gclient sync` 就好。不过这样相对比较麻烦，而且后来发现有一个问题，即便自己手动地把文件下载下来，depot tools 也是不认的，提示说有改动你需要 git commit 或回滚云云，当然这段大约可以改改 gclient 什么的。
+
 另一个办法是在这里边自己写点代码，去代替它的下载函数，可以简单的用 `urllib2` 去下载，target 直接用 file_url，文件位置 ouput_filename 就行。但是试了下也不行，原因不明……
+
 总而言之后面放弃了使用官方的工具，决定直接把源码拖下来然后按照平常的办法编译。发现能编……步骤如下：
+
 - 1，到 https://chromium.googlesource.com/v8/v8/+refs 拿想要编译的版本的 tar 档。
 - 2，`make dependencies`
 https://chromium.googlesource.com/v8/v8/+/3c660e485ea372d1076aecdcece69842563d6adf/Makefile
