@@ -1,5 +1,4 @@
 ---
-layout: post
 title: 编译带 debug symbols 的 V8
 date: 2018-07-02 18:14
 ---
