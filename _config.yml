@@ -1,0 +1,23 @@
+# ----------- CONFIGURABLE START -----------
+title:            "Chesky's Blog"
+description:      "boring life"
+url:              http://chesky42.com # Site url, without a slash at the end.
+signoff:          "chesky" # Your name
+facebook_appid:   # APP ID for like button, remove from /_includes/share.html if unwanted.
+google_analytics: # Set tracking, remove from /javascripts/basic.js if unwanted.
+share:            false # Turn on twitter and facebook share buttons
+future: true
+
+links:
+  - name:         Posts
+    url:          /
+    external:     false
+  - name:         About me
+    url:          /about
+    external:     false
+# ------------ CONFIGURABLE END ------------
+
+permalink:        /posts/:title
+defaults:
+  - values:
+      layout: "default"
