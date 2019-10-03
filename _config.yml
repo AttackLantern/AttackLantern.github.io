@@ -1,8 +1,8 @@
 # ----------- CONFIGURABLE START -----------
-title:            "Velox's Blog"
+title:            "Airbag's Blog"
 description:      "boring life"
 url:              http://velox42.com # Site url, without a slash at the end.
-signoff:          "危楼" # Your name
+signoff:          "airbag" # Your name
 facebook_appid:   # APP ID for like button, remove from /_includes/share.html if unwanted.
 google_analytics: # Set tracking, remove from /javascripts/basic.js if unwanted.
 share:            false # Turn on twitter and facebook share buttons
